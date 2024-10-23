@@ -1,0 +1,74 @@
+html, body {
+    height: 100%; 
+    margin: 0;
+    font-family: "Varela Round", sans-serif;
+    background-color: rgb(3, 6, 46);
+    color: rgb(235, 237, 252);
+    font-size: 130%;
+}
+
+.centralize {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    height: 100vh; 
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px; 
+    margin: 10px; 
+    text-decoration: none;
+    background-color: #007BFF;
+    color: white; 
+    border-radius: 5px; 
+    font-family: "Varela Round", sans-serif;
+}
+
+.button:hover {
+    background-color: #0056b3; 
+}
+
+.center{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.padd{
+    padding-bottom: 20px;
+}
+
+.padd1{
+    padding-left: 200px;
+}
+
+.padd2{
+    padding-bottom: 30px;
+}
+
+
+.margin{
+    padding-left: 300px;
+    padding-right: 300px;
+}
+
+  .background{
+    background-color: rgb(0, 0, 24);
+  }
+
+  .fonte_inicio{
+     color: rgb(54, 98, 241);
+  }
+
+  input[type="text"] {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+  }
