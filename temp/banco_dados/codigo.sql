@@ -6,5 +6,7 @@ create table registros(
     pergunta TEXT not null,
     data_hora_pergunta DATETIME not null,
     resposta TEXT,
-    data_hora_resposta DATETIME
+    data_hora_resposta DATETIME,
+    resposta_gemini TEXT,
+    data_hora_resposta__gemini DATETIME
 );

@@ -15,7 +15,7 @@
     <div class="centralize">
         <div>
             <a href="question.php" class="button">PERGUNTAR</a>
-            <a href="codigo.html" class="button">VER RESPOSTAS</a>
+            <a href="codigo.php" class="button">VER RESPOSTAS</a>
         </div>
     </div>
 </body>

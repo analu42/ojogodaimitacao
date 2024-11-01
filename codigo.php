@@ -12,12 +12,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 <body class="center" >
+    <form action="resposta.php" method="get">
     <div>
         Insira o código:
-        <input type="text" name="pergunta" placeholder="Digite aqui...">
+        <input type="text" name="codigo" placeholder="Digite aqui...">
         <divlass="center">
-            <a href="answers.html" class="button">CONTINUAR</a>
+            <a href="answers.php" class="button">CONTINUAR</a>
+            <button type="submit" class="button">CONTINUAR PARA RESPONDER</button>
         </div>
     </div>
+    </form>
 </body>
 </html>
