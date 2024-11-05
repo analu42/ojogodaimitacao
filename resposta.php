@@ -6,27 +6,25 @@
     <title>test de turing</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="center">
     
     <?php 
-    $codigo = $_GET["codigo"];
-
+    $codigo = $_GET['codigo'];
     ?>
 
-    <div class="container">
-        <div class="branco">
+        <div>
             <?php
-            $pergunta = "";
+            $resposta = "";
             include 'banco/conexao.php';
             $conn = conectar();
-            $smtp = $conn->prepare("SELECT pergunta FROM registros WHERE codigo=? and data_hora_pergunta = (SELECT MAX(data_hora_pergunta) from registros)");
+            $smtp = $conn->prepare("SELECT resposta FROM registros WHERE codigo=? and data_hora_resposta = (SELECT MAX(data_hora_resposta) from registros)");
             $smtp->bind_param("s", $codigo);
 
             $smtp->execute();
             $result = $smtp->get_result();
             while ($row = $result->fetch_assoc()) {
-                echo $row['pergunta'];
-                $pergunta = $row['pergunta'];
+                echo $row['resposta'];
+                $resposta = $row['resposta'];
             }
             desconectar($conn);
             ?>
@@ -36,20 +34,13 @@
         <form action="bd_registrar_resposta.php" method="post">
             <!--<input type="text" class="input" placeholder="Digite..">-->
             <textarea name="resposta"></textarea>
-            <a href="index.php" class="btn ">Enviar</a>
-            <button type="submit" class="button">RESPONDER</button>
+            <!--<a href="index.php" class="btn ">Enviar</a>>-->
+            <button type="index.php" class="button">RESPONDER</button>
             <?php
 
             echo "<input type='hidden' name='codigo' value='$codigo' />";
-            echo "<input type='hidden' name='pergunta' value='$pergunta' />";
-            ?>
-                <div class="container">
-                    <div>
-                    
-                    </div>
-                
-                    
-                </div>
+            echo "<input type='hidden' name='pergunta' value='$resposta' />";
+            ?>  
         </form>
 </body>
 </html>

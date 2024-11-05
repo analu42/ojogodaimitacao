@@ -5,7 +5,7 @@ use GeminiAPI\Resources\Parts\TextPart;
 
 $client = new Client('AIzaSyBjz0aEEBoHjOdk0w64Z8o0FldRUpoerQA');
 $response = $client->geminiPro()->generateContent(
-    new TextPart('Qual é op seu nome?'),
+    new TextPart('Qual é o seu nome?'),
 );
 
 print $response->text();
