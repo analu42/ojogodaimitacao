@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 
     // Redirecionar após a inserção
-    header('Location: index.php');
+    header('Location: comeco.php');
     exit();
 } else {
     echo "Método de requisição inválido.";

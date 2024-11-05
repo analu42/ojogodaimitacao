@@ -6,17 +6,19 @@
     <title>test de turing</title>
     <link rel="stylesheet" href="style1.css">
 </head>
-<body>
-    <div class="centralize">
-        <h1>Código:</h1>
-        <input type="text" class="input" placeholder="Digite o Código">
-        <!--<a href="resposta.php" class="button ">Enviar</a>-->
-        <form action="resposta.php" method="POST" required>
-            <div class="center">
-                    <button type="submit" class="button" required>ENVIAR</button>
-            </div>
-        </form>
-    </div>
-    </div>
+<body class="center">
+    <form action="resposta.php" method="get" required>
+        <div>
+            Código:
+            <input type="text" name="codigo" placeholder="Digite o Código">
+            <!--<a href="resposta.php" class="button ">Enviar</a>-->
+            
+                <div class="center">
+                        <button type="submit" href="resposta.php" class="button" required>ENVIAR</button>
+                        <!--<input type="hidden" id="" name="codigo" value="">-->
+                </div>
+        </div>
+        </div>
+    </form>
 </body>
 </html>

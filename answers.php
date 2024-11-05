@@ -14,21 +14,28 @@
 <body class="center" class="varela-round-regular">
     <div class="margin">
         <div>
+
+        <?php
+            $codigo = $_GET['codigo'];
+        ?>
+
             <div><b>A</b></div>
-            <div class="font">
-                Lorem ipsum dolor sit amet. Et porro atque 
-                aut provident accusamus aut sapiente ducimus
-                ut eaque eius ea beatae quia. Sit autem 
-                optio cum laborum vero et quos voluptatem 
-                et veritatis quam? Ab placeat dignissimos
-                qui accusamus ipsam aut explicabo repellat
-                non sequi explicabo qui nostrum molestiae!
+            
+                
+        <div class="font">
+        <div>
+           a
+         </div>
              </div>
         </div>
+
         <div class="padd2"></div>
+
         <div><b>B</b></div>
+
         <div class="font">
-        <?php
+        <div>
+            <?php
             $resposta = "";
             include 'banco/conexao.php';
             $conn = conectar();
@@ -39,10 +46,12 @@
             $result = $smtp->get_result();
             while ($row = $result->fetch_assoc()) {
                 echo $row['resposta'];
-                $resposta = $row['resposta'];
+                $pergunta = $row['resposta'];
             }
             desconectar($conn);
             ?>
+         </div>
+
          </div>
          <div class="padd2"></div>
          <div class="padd2"></div>
