@@ -16,7 +16,7 @@
         <div>
             <a href="question.php" class="button">PERGUNTAR</a>
             <a href="codigo.php" class="button">VER RESPOSTAS</a><br /><br />
-            <a href="codigo1.php" class="button">RESPONDER</a>
+            <!--<a href="codigo1.php" class="button">RESPONDER</a>-->
             
         </div>
     </div>
