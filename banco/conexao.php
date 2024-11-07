@@ -7,6 +7,11 @@ function conectar(){
     $password = "1FRN@turig";
     $database = "testedeturing";
     #$port = "3307";
+/*
+    $host = "localhost";
+    $user = "root";
+    $password = "";
+    $database = "turing";*/
 
     $conn = new mysqli($host, $user, $password, $database);
 
