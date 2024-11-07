@@ -4,7 +4,7 @@ function conectar(){
     #$host = "localhost:3307";
     $host = "localhost";
     $user = "testedeturing";
-    $password = "1FRN@turig";
+    $password = "1FRN@turing";
     $database = "testedeturing";
     #$port = "3307";
 /*
