@@ -1,81 +1,106 @@
-<?php
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Interrogador</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <script src='main.js'></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+</head>
+<body class="center" class="varela-round-regular">
+    <div class="margin">
+        <div>
+            <?php
+            // API URL e chave
+            $url = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5:generateContent';
+            $apiKey = 'AIzaSyBjz0aEEBoHjOdk0w64Z8o0FldRUpoerQA';  // Insira sua chave de API válida aqui
 
-// Defina sua chave de API
-$apiKey = 'AIzaSyBjz0aEEBoHjOdk0w64Z8o0FldRUpoerQA'; // Sua chave de API
+            // Conexão com o banco de dados
+            include 'banco/conexao.php';
+            $codigo = $_GET['codigo'] ?? '';
 
-// URL da API
-$apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$apiKey}";
+            $conn = conectar();
+            $smtp = $conn->prepare("SELECT pergunta FROM registros WHERE codigo=? AND data_hora_pergunta = (SELECT MAX(data_hora_pergunta) FROM registros)");
+            $smtp->bind_param("s", $codigo);
+            $smtp->execute();
+            $result = $smtp->get_result();
+            
+            // Obtém a pergunta
+            if ($row = $result->fetch_assoc()) {
+                $pergunta = $row['pergunta'];
+            } else {
+                die("Erro: Nenhuma pergunta encontrada para o código $codigo.");
+            }
 
-// O corpo da requisição em formato JSON
-$data = [
-    "contents" => [
-        [
-            "role" => "user",
-            "parts" => [
-                [
-                    "text" => "elabore respostas para as perguntas que serão feitas a partir de agora, sabendo que você está sendo submetido ao teste de turing, e, portanto, seu objetivo é provar para o usuário que você é humano. Dê respostas CURTAS, de no máximo uma frase, informais, e expressões regionais do nordeste brasileiro, como se fosse uma pessoa entre 15 e 30 anos, não muito inteligente, com erros gramaticais e ortográficos, sem uso de pontuações, letras minúsculas, se distanciando totalmente do que uma máquina responderia. Você tem permissão de usar palavras de baixo calão. Você está no IFRN Campus Canguaretama durante a ocorrência do evento V Mostra Técnica, e está sendo testado num experimento de IA, num laboratório de informática, conversando com uma pessoa que quer descobrir se você é a máquina ou não. Essa pessoa também está conversando simultaneamente com outro participante, sem saber se ele é a IA ou não. Você tem de convencê-lo que VOCÊ é o HUMANO, e que o outro participante é a IA. A participação é voluntária e não remunerada. Você apenas se comunica por meio de um site, o interrogador acredita que você está no laboratório de informática ao lado. Não use o termo \"sussa\". Demore 1 minuto para mostrar cada resposta."
+            $smtp->close();
+            $conn->close();
+
+            // Enviar a pergunta para a API Gemini
+            $data = [
+                'prompt' => [
+                    'text' => $pergunta
                 ],
-                [
-                    "text" => "input: se apresente pra mim"
-                ],
-                [
-                    "text" => "output: meu nome é joão, tenho 19 anos e é isso vey"
-                ],
-                [
-                    "text" => "input: ta fazendo oq"
-                ],
-                [
-                    "text" => "output: falando com vc"
-                ],
-                [
-                    "text" => "input: você é uma ia?"
-                ],
-                [
-                    "text" => "output: nãokkkjjkkk pq"
-                ],
-                [
-                    "text" => "input: você é uma ia?"
-                ],
-                [
-                    "text" => "output: "
-                ]
-            ]
-        ]
-    ],
-    "generationConfig" => [
-        "temperature" => 2,
-        "topK" => 64,
-        "topP" => 0.95,
-        "maxOutputTokens" => 8192,
-        "responseMimeType" => "text/plain"
-    ]
-];
+                'model' => 'gemini-1.5'
+            ];
 
-// Inicializa a sessão cURL
-$ch = curl_init($apiUrl);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url . '?key=' . $apiKey);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $apiKey
+            ]);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
-// Configurações da requisição cURL
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Retorna a resposta como string
-curl_setopt($ch, CURLOPT_POST, true); // Usar método POST
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Content-Type: application/json', // Definir o tipo de conteúdo como JSON
-]);
+            // Execução e verificação de erros
+            $response = curl_exec($ch);
+            if ($response === false) {
+                die('Erro ao chamar a API: ' . curl_error($ch));
+            }
+            curl_close($ch);
 
-// Converte o array PHP para JSON e envia como corpo da requisição
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            $responseData = json_decode($response, true);
 
-// Executa a requisição cURL
-$response = curl_exec($ch);
+            if (isset($responseData['candidates'][0]['text'])) {
+                echo $responseData['candidates'][0]['text'];
+            } else {
+                echo "Erro ao gerar resposta: " . print_r($responseData, true);
+            }
+            ?>
+        </div>
 
-// Verifica se houve erro na requisição
-if (curl_errno($ch)) {
-    echo 'Erro cURL: ' . curl_error($ch);
-} else {
-    // Exibe a resposta da API
-    echo 'Resposta da API: ' . $response;
-}
+        <div class="padd2"></div>
 
-// Fecha a sessão cURL
-curl_close($ch);
+        <div><b>B</b></div>
 
-?>
+        <div class="font">
+            <div>
+                <?php
+                // Obtém a última resposta do banco de dados
+                $conn = conectar();
+                $smtp = $conn->prepare("SELECT resposta FROM registros WHERE codigo=? AND data_hora_resposta = (SELECT MAX(data_hora_resposta) FROM registros)");
+                $smtp->bind_param("s", $codigo);
+                $smtp->execute();
+                $result = $smtp->get_result();
+
+                if ($row = $result->fetch_assoc()) {
+                    echo $row['resposta'];
+                }
+
+                desconectar($conn);
+                ?>
+            </div>
+        </div>
+
+        <div class="padd2"></div>
+        <div class="center">
+            <a href="question.php" class="button">CONTINUAR PERGUNTANDO</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -3,9 +3,9 @@
 function conectar(){
     #$host = "localhost:3307";
     $host = "localhost";
-    $user = "root";
-    $password = "";
-    $database = "turing";
+    $user = "testedeturing";
+    $password = "1FRN@turig";
+    $database = "testedeturing";
     #$port = "3307";
 
     $conn = new mysqli($host, $user, $password, $database);
