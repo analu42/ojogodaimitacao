@@ -13,7 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //$usuario = 'root';
     //$senha = '';
     //$banco = 'perguntas';
-
+    try {
+        
+   
     include 'banco/conexao.php';
     $conn = conectar();
 
@@ -44,6 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 } else {
     echo "Método de requisição inválido.";
+}
+
+} catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
 }
 
 ?>
