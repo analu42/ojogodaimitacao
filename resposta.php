@@ -17,8 +17,8 @@
             $pergunta = "";
             include 'banco/conexao.php';
             $conn = conectar();
-            $smtp = $conn->prepare("SELECT pergunta FROM registros WHERE codigo=? and data_hora_pergunta = (SELECT MAX(data_hora_pergunta) from registros)");
-            $smtp->bind_param("s", $codigo);
+            $smtp = $conn->prepare("SELECT pergunta FROM registros WHERE codigo=? and data_hora_pergunta = (SELECT MAX(data_hora_pergunta) from registros WHERE codigo=?)");
+            $smtp->bind_param("ss", $codigo, $codigo);
 
             $smtp->execute();
             $result = $smtp->get_result();
