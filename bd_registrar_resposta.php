@@ -47,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //die("Falha ao se comunicar com o banco de dados: " . $conn->connect_error);
     //}
 
-    $smtp = $conn->prepare("UPDATE registros SET resposta=?, resposta_gemini=?, data_hora_resposta=now() WHERE codigo=? and data_hora_pergunta = (SELECT MAX(data_hora_pergunta) from registros); ");
-    $smtp->bind_param("sss", $resposta, $resposta_gemini, $codigo);
+    $smtp = $conn->prepare("UPDATE registros SET resposta=?, resposta_gemini=?, data_hora_resposta=now() WHERE codigo=? and data_hora_pergunta = (SELECT MAX(data_hora_pergunta) from registros where codigo=?); ");
+    $smtp->bind_param("ssss", $resposta, $resposta_gemini, $codigo, $codigo);
 
     // Executar a consulta
     if ($smtp->execute()) {
