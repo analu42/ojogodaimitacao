@@ -1,5 +1,5 @@
 <?php
-
+  try {
 // Verifica se os dados do formulário foram enviados
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // PEGANDO OS DADOS VINDOS DO FORMULÁRIO
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //$usuario = 'root';
     //$senha = '';
     //$banco = 'perguntas';
-    try {
+  
         
    
     include 'banco/conexao.php';
