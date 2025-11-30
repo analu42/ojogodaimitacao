@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 
     $client = new Client('AIzaSyBjz0aEEBoHjOdk0w64Z8o0FldRUpoerQA');
-   $response = $client->geminiPro()->generateContent(
+    $response = $client->geminiPro()->generateContent(
         new TextPart("elabore resposta para a pergunta a seguir, 
         sabendo que você está sendo submetido ao teste de turing, e, portanto, seu objetivo é 
         provar para o usuário que você é humano. Dê resposta CURTA, de no máximo uma frase, 
