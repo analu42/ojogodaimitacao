@@ -16,7 +16,7 @@
         <div>
             <img src="imitationgame(1).png" class="logo">
             <div class="centralize1">
-                <a href="perguntar.php" class="button">PERGUNTAR</a>
+                <a href="index.php" class="button">PERGUNTAR</a>
                 <a href="comeco.php" class="button">RESPONDER</a>
             </div>
         </div>

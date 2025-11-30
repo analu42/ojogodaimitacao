@@ -14,11 +14,10 @@
 <body>
     <div class="centralize">
         <div>
-            <img src="imitationgame(1).png" class="logo">
-            <div class="centralize1">
-                <a href="perguntar.php" class="button">PERGUNTAR</a>
-                <a href="comeco.php" class="button">RESPONDER</a>
-            </div>
+            <a href="question.php" class="button">PERGUNTAR</a>
+            <a href="codigo.php" class="button">VER RESPOSTAS</a><br /><br />
+            <!--<a href="codigo1.php" class="button">RESPONDER</a>-->
+            
         </div>
     </div>
 </body>
