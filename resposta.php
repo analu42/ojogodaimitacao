@@ -39,7 +39,7 @@
                 <!--<input type="text" class="input" placeholder="Digite..">-->
                 <textarea type="text" name="resposta" rows="5"></textarea>
                 <!--<a href="index.php" class="btn ">Enviar</a>>-->
-                <button type="comeco.php" class="button">RESPONDER</button>
+                <button type="submit" class="button">RESPONDER</button>
 
                 <?php
                 echo "<input type='hidden' name='codigo' value='$codigo' />";
